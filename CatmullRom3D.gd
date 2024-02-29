@@ -1,8 +1,7 @@
-tool
-extends Curve3D
-class_name CatmullRom3D
+@tool
+class_name CatmullRom3D extends Curve3D
 
-export (float,0,2) var torsion=0.5 setget set_torsion
+@export_range(0, 2, 0.001) var torsion: float = 0.5
 
 func set_torsion(t):
 	torsion=t
@@ -32,18 +31,17 @@ func update_control_points():
 		set_point_out(0,k*(get_point_position(1)-get_point_position(0)))
 		set_point_in(pc-1,-k*(get_point_position(pc-1)-get_point_position(pc-2)))
 
-func add_point(pos:Vector3,_in:Vector3=Vector3.ZERO,_out:Vector3=Vector3.ZERO,idx:int=-1)->void:
-	.add_point(pos,_in,_out,idx)
+func add_point(pos:Vector3, _in:Vector3=Vector3.ZERO, _out:Vector3=Vector3.ZERO, idx:int=-1)->void:
+	#.add_point(pos,_in,_out,idx)
+	super.add_point(pos, _in, _out, idx)
 	update_control_points()
 
 func set_point_position(idx:int,pos:Vector3)->void:
-	.set_point_position(idx,pos)
+	super.set_point_position(idx,pos)
+	super.set_point_position(idx, pos)
 	update_control_points()
 
 func remove_point(idx:int)->void:
-	.remove_point(idx)
+	super.remove_point(idx)
 	update_control_points()
-
-
-
 

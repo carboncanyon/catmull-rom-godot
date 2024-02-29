@@ -1,8 +1,7 @@
-tool
-extends Curve2D
-class_name CatmullRom2D
+@tool
+class_name CatmullRom2D extends Curve2D
 
-export (float,0,2) var torsion=0.5 setget set_torsion
+@export_range(0, 2, 0.001) var torsion: float = 0.5
 
 func set_torsion(t):
 	torsion=t
@@ -33,15 +32,15 @@ func update_control_points():
 		set_point_in(pc-1,-k*(get_point_position(pc-1)-get_point_position(pc-2)))
 
 func add_point(pos:Vector2,_in:Vector2=Vector2.ZERO,_out:Vector2=Vector2.ZERO,idx:int=-1)->void:
-	.add_point(pos,_in,_out,idx)
+	super.add_point(pos,_in,_out,idx)
 	update_control_points()
 
 func set_point_position(idx:int,pos:Vector2)->void:
-	.set_point_position(idx,pos)
+	super.set_point_position(idx,pos)
 	update_control_points()
 
 func remove_point(idx:int)->void:
-	.remove_point(idx)
+	super.remove_point(idx)
 	update_control_points()
 
 
